@@ -9,19 +9,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="svc.com.graphgame.FirstMap">
+    android:id="@+id/firstMapGameView"
+    tools:context=".Maps.FirstMap">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvFirstMapTitle"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="First Map"
-        android:textSize="20dp" />
 
 </RelativeLayout>
