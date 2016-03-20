@@ -23,7 +23,7 @@ import svc.com.graphgame.R;
 public class FirstMap extends Activity {
 
     //Create global variables for objects on screen and import classes
-    PebbleNode node1, node2, node3, node4, node5, node6;
+    PebbleNode node1, node2, node3, node4, node5, node6, lastNodeSelected = null;
     int width, height;
     RelativeLayout relativeLayout;
     ConnectNodes cntNode12, cntNode14, cntNode16, cntNode25, cntNode34,
@@ -125,51 +125,87 @@ public class FirstMap extends Activity {
         int touchY = (int) event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if(node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
-                    alert(1); //Debugging method
-                    resetLines(); //Resets lines back to black
-                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
-                    cntNode14.setSelected(true);
-                    cntNode16.setSelected(true);
-                    cntNode12.postInvalidate(); //Invalidate to redraw as new color
-                    cntNode14.postInvalidate();
-                    cntNode16.postInvalidate();
-                } if(node2.contains(touchX, touchY)) {
-                    alert(2); //Debugging method
-                    resetLines(); //Resets lines back to black
-                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
-                    cntNode25.setSelected(true);
-                    cntNode12.postInvalidate(); //Invalidate to redraw as new color
-                    cntNode25.postInvalidate();
-                } if(node3.contains(touchX, touchY)) {
-                    alert(3); //Debugging method
-                    resetLines(); //Resets lines back to black
-                    cntNode34.setSelected(true); //Sets selected boolean to true to change colors
-                    cntNode36.setSelected(true);
-                    cntNode34.postInvalidate(); //Invalidate to redraw as new color
-                    cntNode36.postInvalidate();
-                } if(node4.contains(touchX, touchY)) {
-                    alert(4); //Debugging method
-                    resetLines(); //Resets lines back to black
-                    cntNode14.setSelected(true); //Sets selected boolean to true to change colors
-                    cntNode34.setSelected(true);
-                    cntNode45.setSelected(true);
-                    cntNode14.postInvalidate(); //Invalidate to redraw as new color
-                    cntNode34.postInvalidate();
-                    cntNode45.postInvalidate();
-                } if(node5.contains(touchX, touchY)) {
-                    alert(5); //Debugging method
-                    resetLines(); //Resets lines back to black
-                    cntNode25.setSelected(true); //Sets selected boolean to true to change colors
-                    cntNode45.setSelected(true);
-                    cntNode56.setSelected(true);
-                    cntNode25.postInvalidate(); //Invalidate to redraw as new color
-                    cntNode45.postInvalidate();
-                    cntNode56.postInvalidate();
-                } if(node6.contains(touchX, touchY)) {
-                    alert(6); //Debugging method
-                    resetLines(); //Resets lines back to black
-                }
+            	if (lastNodeSelected == null) { 
+	                if(node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
+	                    alert(1); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+	                    cntNode14.setSelected(true);
+	                    cntNode16.setSelected(true);
+	                    cntNode12.postInvalidate(); //Invalidate to redraw as new color
+	                    cntNode14.postInvalidate();
+	                    cntNode16.postInvalidate();
+	                } if(node2.contains(touchX, touchY)) {
+	                    alert(2); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+	                    cntNode25.setSelected(true);
+	                    cntNode12.postInvalidate(); //Invalidate to redraw as new color
+	                    cntNode25.postInvalidate();
+	                } if(node3.contains(touchX, touchY)) {
+	                    alert(3); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                    cntNode34.setSelected(true); //Sets selected boolean to true to change colors
+	                    cntNode36.setSelected(true);
+	                    cntNode34.postInvalidate(); //Invalidate to redraw as new color
+	                    cntNode36.postInvalidate();
+	                } if(node4.contains(touchX, touchY)) {
+	                    alert(4); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                    cntNode14.setSelected(true); //Sets selected boolean to true to change colors
+	                    cntNode34.setSelected(true);
+	                    cntNode45.setSelected(true);
+	                    cntNode14.postInvalidate(); //Invalidate to redraw as new color
+	                    cntNode34.postInvalidate();
+	                    cntNode45.postInvalidate();
+	                } if(node5.contains(touchX, touchY)) {
+	                    alert(5); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                    cntNode25.setSelected(true); //Sets selected boolean to true to change colors
+	                    cntNode45.setSelected(true);
+	                    cntNode56.setSelected(true);
+	                    cntNode25.postInvalidate(); //Invalidate to redraw as new color
+	                    cntNode45.postInvalidate();
+	                    cntNode56.postInvalidate();
+	                } if(node6.contains(touchX, touchY)) {
+	                    alert(6); //Debugging method
+	                    resetLines(); //Resets lines back to black
+	                }
+            	}
+            	// The following activates when another node was selected before the node that was just touched, signifying a move.
+            	// So far this does not check if there is an illegal move between unconnected nodes.
+            	else { 
+            		if (node1.contains(touchX, touchY) && !(node1.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node1);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            		if (node2.contains(touchX, touchY) && !(node2.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node2);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            		if (node3.contains(touchX, touchY) && !(node3.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node3);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            		if (node4.contains(touchX, touchY) && !(node4.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node4);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            		if (node5.contains(touchX, touchY) && !(node5.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node5);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            		if (node6.contains(touchX, touchY) && !(node6.equals(lastNodeSelected))) {
+            			movePebbles(lastNodeSelected, node6);
+            			lastNodeSelected == null;
+            			resetLines();
+            		}
+            	}
                 break;
         }
         return super.onTouchEvent(event); //Don't touch this
