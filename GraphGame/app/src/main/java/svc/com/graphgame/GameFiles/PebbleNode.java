@@ -71,6 +71,16 @@ public class PebbleNode extends View {
     public float width(){
         return right - left;
     }
+    
+    //Getter method
+    public int getPebbles(){
+        return numPebbles;
+    }
+    
+    //Getter method
+    public boolean isGoal(){
+        return goalNode;
+    }
 
     //Setter method
     public void setNumPebbles(int numPebbles){
@@ -86,4 +96,18 @@ public class PebbleNode extends View {
                 return false;
         return false;
     }
+    
+    //Basic pebble moving method. Must be updated later to account for the differing rules between the attacker's
+    //and defender's moves once we have those implemented.
+    public void movePebbles(PebbleNode moveFrom, PebbleNode moveTo)
+    {
+        if (this.getPebbles() >= 2)
+        {
+            this.setNumPebbles(this.getPebbles() - 2);
+            moveTo.setNumPebbles(moveTo.getPebbles() + 1);
+            this.postInvalidate(); // Update the game display once the move occurs
+            moveTo.postInvalidate();
+        }
+    }
+
 }
