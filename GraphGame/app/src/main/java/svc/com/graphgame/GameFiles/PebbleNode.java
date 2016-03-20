@@ -105,6 +105,8 @@ public class PebbleNode extends View {
         {
             moveFrom.setNumPebbles(moveFrom.getPebbles() - 2);
             moveTo.setNumPebbles(moveTo.getPebbles() + 1);
+            moveFrom.postInvalidate(); // Update the game display once the move occurs
+            moveTo.postInvalidate();
         }
     }
 
