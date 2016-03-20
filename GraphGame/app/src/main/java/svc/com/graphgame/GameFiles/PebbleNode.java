@@ -101,11 +101,11 @@ public class PebbleNode extends View {
     //and defender's moves once we have those implemented.
     public void movePebbles(PebbleNode moveFrom, PebbleNode moveTo)
     {
-        if (moveFrom.getPebbles() >= 2)
+        if (this.getPebbles() >= 2)
         {
-            moveFrom.setNumPebbles(moveFrom.getPebbles() - 2);
+            this.setNumPebbles(this.getPebbles() - 2);
             moveTo.setNumPebbles(moveTo.getPebbles() + 1);
-            moveFrom.postInvalidate(); // Update the game display once the move occurs
+            this.postInvalidate(); // Update the game display once the move occurs
             moveTo.postInvalidate();
         }
     }
