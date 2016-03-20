@@ -129,6 +129,7 @@ public class FirstMap extends Activity {
 	                if(node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
 	                    alert(1); //Debugging method
 	                    resetLines(); //Resets lines back to black
+	                    lastNodeSelected = node1;
 	                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
 	                    cntNode14.setSelected(true);
 	                    cntNode16.setSelected(true);
@@ -138,6 +139,7 @@ public class FirstMap extends Activity {
 	                } if(node2.contains(touchX, touchY)) {
 	                    alert(2); //Debugging method
 	                    resetLines(); //Resets lines back to black
+	                    lastNodeSelected = node2;
 	                    cntNode12.setSelected(true); //Sets selected boolean to true to change colors
 	                    cntNode25.setSelected(true);
 	                    cntNode12.postInvalidate(); //Invalidate to redraw as new color
@@ -145,6 +147,7 @@ public class FirstMap extends Activity {
 	                } if(node3.contains(touchX, touchY)) {
 	                    alert(3); //Debugging method
 	                    resetLines(); //Resets lines back to black
+	                    lastNodeSelected = node3;
 	                    cntNode34.setSelected(true); //Sets selected boolean to true to change colors
 	                    cntNode36.setSelected(true);
 	                    cntNode34.postInvalidate(); //Invalidate to redraw as new color
@@ -152,6 +155,7 @@ public class FirstMap extends Activity {
 	                } if(node4.contains(touchX, touchY)) {
 	                    alert(4); //Debugging method
 	                    resetLines(); //Resets lines back to black
+	                    lastNodeSelected = node4;
 	                    cntNode14.setSelected(true); //Sets selected boolean to true to change colors
 	                    cntNode34.setSelected(true);
 	                    cntNode45.setSelected(true);
@@ -161,6 +165,7 @@ public class FirstMap extends Activity {
 	                } if(node5.contains(touchX, touchY)) {
 	                    alert(5); //Debugging method
 	                    resetLines(); //Resets lines back to black
+	                    lastNodeSelected = node5;
 	                    cntNode25.setSelected(true); //Sets selected boolean to true to change colors
 	                    cntNode45.setSelected(true);
 	                    cntNode56.setSelected(true);
@@ -176,32 +181,32 @@ public class FirstMap extends Activity {
             	// So far this does not check if there is an illegal move between unconnected nodes.
             	else { 
             		if (node1.contains(touchX, touchY) && !(node1.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node1);
+            			lastNodeSelected.movePebbles(node1);
             			lastNodeSelected == null;
             			resetLines();
             		}
             		if (node2.contains(touchX, touchY) && !(node2.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node2);
+            			lastNodeSelected.movePebbles(node2);
             			lastNodeSelected == null;
             			resetLines();
             		}
             		if (node3.contains(touchX, touchY) && !(node3.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node3);
+            			lastNodeSelected.movePebbles(node3);
             			lastNodeSelected == null;
             			resetLines();
             		}
             		if (node4.contains(touchX, touchY) && !(node4.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node4);
+            			lastNodeSelected.movePebbles(node4);
             			lastNodeSelected == null;
             			resetLines();
             		}
             		if (node5.contains(touchX, touchY) && !(node5.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node5);
+            			lastNodeSelected.movePebbles(node5);
             			lastNodeSelected == null;
             			resetLines();
             		}
             		if (node6.contains(touchX, touchY) && !(node6.equals(lastNodeSelected))) {
-            			movePebbles(lastNodeSelected, node6);
+            			lastNodeSelected.movePebbles(node6);
             			lastNodeSelected == null;
             			resetLines();
             		}
