@@ -14,8 +14,13 @@ import android.widget.TextView;
 
 public class StartScreen extends AppCompatActivity implements View.OnClickListener{
 
-    //Create global variables for objects on screen and import classes
-    Button start;
+    /*
+    * TODO: Create better description of class
+    * TODO: Add visuals to make more appealing
+    */
+
+    //Create global variables and import classes
+    Button start, about;
     TextView title; //Not necessary since we're not changing it
 
     @Override
@@ -25,6 +30,7 @@ public class StartScreen extends AppCompatActivity implements View.OnClickListen
 
         //Initialize objects on screen by casting findViewById(R.id.(Whatever id is))
         start = (Button) findViewById(R.id.btnStart);
+        about = (Button) findViewById(R.id.btnAbout);
         title = (TextView) findViewById(R.id.tvTitle);
 
         /*
@@ -46,6 +52,10 @@ public class StartScreen extends AppCompatActivity implements View.OnClickListen
                 * Must pass the context of this view using this and activity you're going to using .class
                 */
                 startActivity(new Intent(this, MapList.class));
+                break;
+            case R.id.btnAbout:
+                //Go to the about screen
+                startActivity(new Intent(this, AboutScreen.class));
                 break;
         }
     }

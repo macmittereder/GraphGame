@@ -37,4 +37,17 @@
         android:id="@+id/btnStart"
         android:layout_below="@+id/tvTitle"
         android:layout_marginTop="100dp" />
+
+    <!-- Button to go to the about screen -->
+    <Button
+        android:layout_width="175dp"
+        android:layout_height="70dp"
+        android:text="About"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:id="@+id/btnAbout"
+        android:layout_below="@+id/btnStart"
+        android:layout_marginTop="30dp"/>
+
 </RelativeLayout>

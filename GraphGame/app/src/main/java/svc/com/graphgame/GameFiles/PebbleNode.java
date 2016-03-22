@@ -1,11 +1,19 @@
 package svc.com.graphgame.GameFiles;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
+
+import svc.com.graphgame.R;
 
 /*
 * Created 3/15/2016 by Mac Mittereder
@@ -13,6 +21,12 @@ import android.view.View;
 */
 
 public class PebbleNode extends View {
+
+    /*
+    * TODO: Replace rectangle with image
+    * TODO: Center text better
+    * TODO: Create better description of class
+    */
 
     //Create global variables for objects on screen and import classes
     Paint paint = new Paint();
@@ -45,8 +59,19 @@ public class PebbleNode extends View {
             paint.setColor(Color.BLUE);
         else
             paint.setColor(Color.BLACK);
+
         //Draw rectangle with TopLeftX, TopLeftY, BottomRightX, BottomRightY, paint is the style (Color, text size, etc.)
         canvas.drawRect(left, top, right, bottom, paint);
+        /*  Experimenting with using images instead of rectangle and changing the color without adding a different picture
+        *
+        *   ColorFilter filter = new LightingColorFilter(Color.BLUE, 1); //Creates color filter and sets the filter color to blue
+        *   paint.setColorFilter(filter); //Set color filter in paint
+        *   Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.square); //Use bitmap factory to select image from your resources,
+        *                                                                                    put images in drawable and find them by R.drawable.(image name minus extention)
+        *   canvas.drawBitmap(Bitmap.createScaledBitmap(bitmap, (int) width(),
+        *       (int) height(), false), left, top, paint); //Resize bitmap using .createScaledBitmap, draw using topLeftX, topLeftY, need to apply a paint, this is where a filter can be set
+        *   paint = new Paint();
+        */
         paint.setColor(Color.WHITE);
         paint.setTextSize(85f);
         //Used string builder to append the number of pebbles and goal text
@@ -73,8 +98,13 @@ public class PebbleNode extends View {
     }
 
     //Setter method
-    public void setNumPebbles(int numPebbles){
+    public void setPebbles(int numPebbles){
         this.numPebbles = numPebbles;
+    }
+
+    //Getter method
+    public int getPebbles(){
+        return numPebbles;
     }
 
     //Method to check if touch coordinates are inside of Rectangle bounds
@@ -85,5 +115,16 @@ public class PebbleNode extends View {
         else
                 return false;
         return false;
+    }
+
+    //Basic pebble moving method. Must be updated later to account for the differing rules between the attacker's
+    //and defender's moves once we have those implemented. <- Implemented via GameRules
+    public void movePebbles(PebbleNode destination) {
+        if (this.getPebbles() >= 2) {
+            this.setPebbles(this.getPebbles() - 2);
+            destination.setPebbles(destination.getPebbles() + 1);
+            this.postInvalidate(); // Update the game display once the move occurs
+            destination.postInvalidate();
+        }
     }
 }

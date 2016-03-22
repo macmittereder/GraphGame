@@ -13,7 +13,11 @@ import android.view.View;
 
 public class ConnectNodes extends View{
 
-    //Create global variables for objects on screen and import classes
+    /*
+    * TODO: Create better description of class
+    */
+
+    //Create global variables and import classes
     PebbleNode node1, node2;
     boolean selected;
 
@@ -23,11 +27,11 @@ public class ConnectNodes extends View{
     }
 
     //This is how we pass in the nodes to create the lines
-    public ConnectNodes(Context context, PebbleNode node1, PebbleNode node2, Boolean selected){
+    public ConnectNodes(Context context, PebbleNode node1, PebbleNode node2){
         super(context);
         this.node1 = node1;
         this.node2 = node2;
-        this.selected = selected;
+        selected = false;
     }
 
     //This method gets executed after it's called to draw the item to your 'canvas' or layout

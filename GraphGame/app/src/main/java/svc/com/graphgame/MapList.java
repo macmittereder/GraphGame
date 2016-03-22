@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import svc.com.graphgame.Maps.FirstMap;
+import svc.com.graphgame.Maps.SecondMap;
 
 /*
 * Created 3/10/2016 by Mac Mittereder
@@ -21,7 +22,11 @@ import svc.com.graphgame.Maps.FirstMap;
 
 public class MapList extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    //Create global variables for objects on screen and import classes
+    /*
+    * TODO: Create better description of class
+    */
+
+    //Create global variables and import classes
     ListView mapList;
     TextView title; //Not necessary since we're not changing it
 
@@ -78,6 +83,7 @@ public class MapList extends AppCompatActivity implements AdapterView.OnItemClic
                 break;
             case 1:
                 Toast.makeText(this, "Second Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SecondMap.class));
                 break;
             case 2:
                 Toast.makeText(this, "Third Clicked", Toast.LENGTH_SHORT).show();
