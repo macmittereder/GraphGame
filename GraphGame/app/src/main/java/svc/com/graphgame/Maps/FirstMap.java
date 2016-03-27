@@ -240,44 +240,68 @@ public class FirstMap extends Activity {
                 //Checks if the nodes are connected via connected nodes in game rules
                 if(movingPebbles){
                     if (node1.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node1)) { //Refer to PebbleNode.contains() and GameRules.checkPebbleMove()
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node1) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node1))) { //Refer to PebbleNode.contains() and GameRules.checkPebbleMove()
                         gameRules.getLastNode().movePebbles(node1);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node1);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
                     if (node2.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node2)) {
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node2) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node2))) {
                         gameRules.getLastNode().movePebbles(node2);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node2);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
                     if (node3.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node3)) {
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node3) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node3))) {
                         gameRules.getLastNode().movePebbles(node3);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node3);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
                     if (node4.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node4)) {
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node4) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node4))) {
                         gameRules.getLastNode().movePebbles(node4);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node4);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
                     if (node5.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node5)) {
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node5) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node5))) {
                         gameRules.getLastNode().movePebbles(node5);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node5);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
                     if (node6.contains(touchX, touchY) &&
-                            gameRules.checkPebbleMove(gameRules.getLastNode(), node6)) {
+                            gameRules.checkPebbleMove(gameRules.getLastNode(), node6) &&
+                            !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node6))) {
                         gameRules.getLastNode().movePebbles(node6);
+                        gameRules.setLastMoveFrom(gameRules.getLastNode());
+                        gameRules.setLastMoveTo(node6);
                         gameRules.setLastNode(null);
+                        gameRules.swapTurns();
                         resetLines();
                         movingPebbles = false;
                     }
