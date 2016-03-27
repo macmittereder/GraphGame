@@ -38,7 +38,7 @@ public class FirstMap extends Activity {
         cntNode36, cntNode45, cntNode56;
     GameRules gameRules;
     TextView textView;
-    boolean movingPebbles;
+    boolean movingPebbles = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,61 +166,63 @@ public class FirstMap extends Activity {
             //Action_Down happens when your finger presses down on the screen
             case MotionEvent.ACTION_DOWN:
                 textView.setText("Touch Down"); //Touch debugging
-                    if (node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
-                        alert(1); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node1);
-                        cntNode12.setSelected(true); //Sets selected boolean to true to change colors
-                        cntNode14.setSelected(true);
-                        cntNode16.setSelected(true);
-                        cntNode12.postInvalidate(); //Invalidate to redraw as new color
-                        cntNode14.postInvalidate();
-                        cntNode16.postInvalidate();
-                    }
-                    if (node2.contains(touchX, touchY)) {
-                        alert(2); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node2);
-                        cntNode12.setSelected(true); //Sets selected boolean to true to change colors
-                        cntNode25.setSelected(true);
-                        cntNode12.postInvalidate(); //Invalidate to redraw as new color
-                        cntNode25.postInvalidate();
-                    }
-                    if (node3.contains(touchX, touchY)) {
-                        alert(3); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node3);
-                        cntNode34.setSelected(true); //Sets selected boolean to true to change colors
-                        cntNode36.setSelected(true);
-                        cntNode34.postInvalidate(); //Invalidate to redraw as new color
-                        cntNode36.postInvalidate();
-                    }
-                    if (node4.contains(touchX, touchY)) {
-                        alert(4); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node4);
-                        cntNode14.setSelected(true); //Sets selected boolean to true to change colors
-                        cntNode34.setSelected(true);
-                        cntNode45.setSelected(true);
-                        cntNode14.postInvalidate(); //Invalidate to redraw as new color
-                        cntNode34.postInvalidate();
-                        cntNode45.postInvalidate();
-                    }
-                    if (node5.contains(touchX, touchY)) {
-                        alert(5); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node5);
-                        cntNode25.setSelected(true); //Sets selected boolean to true to change colors
-                        cntNode45.setSelected(true);
-                        cntNode56.setSelected(true);
-                        cntNode25.postInvalidate(); //Invalidate to redraw as new color
-                        cntNode45.postInvalidate();
-                        cntNode56.postInvalidate();
-                    }
-                    if (node6.contains(touchX, touchY)) {
-                        alert(6); //Debugging method
-                        resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node6);
+                    if (!(movingPebbles)) {
+                        if (node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
+                            alert(1); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node1);
+                            cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode14.setSelected(true);
+                            cntNode16.setSelected(true);
+                            cntNode12.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode14.postInvalidate();
+                            cntNode16.postInvalidate();
+                        }
+                        if (node2.contains(touchX, touchY)) {
+                            alert(2); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node2);
+                            cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode25.setSelected(true);
+                            cntNode12.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode25.postInvalidate();
+                        }
+                        if (node3.contains(touchX, touchY)) {
+                            alert(3); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node3);
+                            cntNode34.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode36.setSelected(true);
+                            cntNode34.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode36.postInvalidate();
+                        }
+                        if (node4.contains(touchX, touchY)) {
+                            alert(4); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node4);
+                            cntNode14.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode34.setSelected(true);
+                            cntNode45.setSelected(true);
+                            cntNode14.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode34.postInvalidate();
+                            cntNode45.postInvalidate();
+                        }
+                        if (node5.contains(touchX, touchY)) {
+                            alert(5); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node5);
+                            cntNode25.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode45.setSelected(true);
+                            cntNode56.setSelected(true);
+                            cntNode25.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode45.postInvalidate();
+                            cntNode56.postInvalidate();
+                        }
+                        if (node6.contains(touchX, touchY)) {
+                            alert(6); //Debugging method
+                            resetLines(); //Resets lines back to black
+                            gameRules.setLastNode(node6);
+                        }
                     }
                 break;
             //Action_Move happens when your finger moves on the screen while pressed down
@@ -310,6 +312,8 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                 }
+                else
+                    movingPebbles = true;
                 break;
         }
         return super.onTouchEvent(event); //Don't touch this
