@@ -27,9 +27,10 @@ public class GameRules extends View{
     */
 
     //Create global variables and import classes
-    PebbleNode lastNodeSelected = null, goalNode;
+    PebbleNode lastNodeSelected = null, lastNodeMovedFrom, lastNodeMovedTo, goalNode;
     ArrayList<ConnectNodes> listOfConnectedNodes;
     ArrayList<PebbleNode> listOfPebbleNodes;
+    boolean attackersTurn = true;
     int screenX, screenY;
     Paint paint;
 
@@ -81,8 +82,17 @@ public class GameRules extends View{
     public boolean checkPebbleMove(PebbleNode start, PebbleNode destination) {
         for (ConnectNodes cntNode: listOfConnectedNodes)
             if ( (cntNode.node1 == start || cntNode.node1 == destination) &&
-                    (cntNode.node2 == start || cntNode.node2 == destination) )
+                    (cntNode.node2 == start || cntNode.node2 == destination))
                 return true;
+        return false;
+    }
+
+    //Checks if the defender tries to reverse the attacker's last move. If the start of the
+    //defender's move is the destination the the attacker's last move, and the destination is the
+    //start of the attacker's last move, this is illegal. Returns true if the move is illegal.
+    public boolean checkIllegalDefenderMove(PebbleNode start, PebbleNode destination) {
+        if (start == lastNodeMovedTo && destination == lastNodeMovedFrom && !(attackersTurn))
+            return true;
         return false;
     }
 
@@ -123,8 +133,15 @@ public class GameRules extends View{
         return lastNodeSelected;
     }
 
-    //Setter method
+    //Setter methods
     public void setLastNode(PebbleNode nodeSelected) {
         lastNodeSelected = nodeSelected;
     }
+
+    public void setLastMoveFrom(PebbleNode node) { lastNodeMovedFrom = node; }
+
+    public void setLastMoveTo(PebbleNode node) { lastNodeMovedTo = node; }
+
+    //Swaps whose move it is
+    public void swapTurns() { attackersTurn = !(attackersTurn); }
 }
