@@ -38,7 +38,11 @@ public class FirstMap extends Activity {
         cntNode36, cntNode45, cntNode56;
     GameRules gameRules;
     TextView textView;
+<<<<<<< HEAD
+    boolean movingPebbles, attTurn = true;
+=======
     boolean movingPebbles = false;
+>>>>>>> origin/master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,6 @@ public class FirstMap extends Activity {
 
 		//Initialize layout
         relativeLayout = (RelativeLayout) findViewById(R.id.firstMapGameView);
-        textView = (TextView) findViewById(R.id.touchEvent);
 
 		//Retrieving dimensions of the screen 
         Display display = getWindowManager().getDefaultDisplay();
@@ -79,31 +82,6 @@ public class FirstMap extends Activity {
         cntNode45 = new ConnectNodes(this, node4, node5);
         cntNode56 = new ConnectNodes(this, node5, node6);
 
-        //Add the nodes and lines connecting them to the layout
-        relativeLayout.addView(node1);
-        relativeLayout.addView(node2);
-        relativeLayout.addView(node3);
-        relativeLayout.addView(node4);
-        relativeLayout.addView(node5);
-        relativeLayout.addView(node6);
-        relativeLayout.addView(cntNode12);
-        relativeLayout.addView(cntNode14);
-        relativeLayout.addView(cntNode16);
-        relativeLayout.addView(cntNode25);
-        relativeLayout.addView(cntNode34);
-        relativeLayout.addView(cntNode36);
-        relativeLayout.addView(cntNode45);
-        relativeLayout.addView(cntNode56);
-        relativeLayout.addView(gameRules);
-
-        //Bring nodes to front so the lines are behind them
-        node1.bringToFront();
-        node2.bringToFront();
-        node3.bringToFront();
-        node4.bringToFront();
-        node5.bringToFront();
-        node6.bringToFront();
-
         //Add connections to the game rules
         gameRules.addConnectedNodes(cntNode12);
         gameRules.addConnectedNodes(cntNode14);
@@ -122,38 +100,31 @@ public class FirstMap extends Activity {
         gameRules.addPebbleNodes(node5);
         gameRules.addPebbleNodes(node6);
 
+        //Add lines connecting nodes to the layout
+        //Draw lines first so the nodes are drawn ontop of them
+        for (ConnectNodes cntNode: gameRules.getListOfConnectedNodes())
+            relativeLayout.addView(cntNode);
+
+        //Add nodes to the layout
+        for (PebbleNode node: gameRules.getListOfPebbleNodes())
+            relativeLayout.addView(node);
+
         //Set goal node in game rules
         gameRules.setGoalNode(node6);
         gameRules.setScreenSize(width, height);
 
         //Set game rules to front to display win
+        relativeLayout.addView(gameRules);
         gameRules.bringToFront();
     }
 
     //This is a class to reset the lines back to black
     //.postInvalidate() redraws the item after the set selected is set to false
     public void resetLines(){
-        cntNode12.setSelected(false);
-        cntNode14.setSelected(false);
-        cntNode16.setSelected(false);
-        cntNode25.setSelected(false);
-        cntNode34.setSelected(false);
-        cntNode36.setSelected(false);
-        cntNode45.setSelected(false);
-        cntNode56.setSelected(false);
-        cntNode12.postInvalidate();
-        cntNode14.postInvalidate();
-        cntNode16.postInvalidate();
-        cntNode25.postInvalidate();
-        cntNode34.postInvalidate();
-        cntNode36.postInvalidate();
-        cntNode45.postInvalidate();
-        cntNode56.postInvalidate();
-    }
-
-    //This is a debugging class to show which node was clicked
-    public void alert(int num){
-        Toast.makeText(this, "Node " + num, Toast.LENGTH_SHORT).show();
+        for (ConnectNodes cntNode : gameRules.getListOfConnectedNodes()){
+            cntNode.setSelected(false);
+            cntNode.postInvalidate();
+        }
     }
 
     //This is the touch handling class for the nodes
@@ -165,6 +136,56 @@ public class FirstMap extends Activity {
         switch (event.getAction()) {
             //Action_Down happens when your finger presses down on the screen
             case MotionEvent.ACTION_DOWN:
+<<<<<<< HEAD
+                    if (node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
+                        resetLines(); //Resets lines back to black
+                        gameRules.setLastNode(node1);
+                        cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+                        cntNode14.setSelected(true);
+                        cntNode16.setSelected(true);
+                        cntNode12.postInvalidate(); //Invalidate to redraw as new color
+                        cntNode14.postInvalidate();
+                        cntNode16.postInvalidate();
+                    }
+                    if (node2.contains(touchX, touchY)) {
+                        resetLines(); //Resets lines back to black
+                        gameRules.setLastNode(node2);
+                        cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+                        cntNode25.setSelected(true);
+                        cntNode12.postInvalidate(); //Invalidate to redraw as new color
+                        cntNode25.postInvalidate();
+                    }
+                    if (node3.contains(touchX, touchY)) {
+                        resetLines(); //Resets lines back to black
+                        gameRules.setLastNode(node3);
+                        cntNode34.setSelected(true); //Sets selected boolean to true to change colors
+                        cntNode36.setSelected(true);
+                        cntNode34.postInvalidate(); //Invalidate to redraw as new color
+                        cntNode36.postInvalidate();
+                    }
+                    if (node4.contains(touchX, touchY)) {
+                        resetLines(); //Resets lines back to black
+                        gameRules.setLastNode(node4);
+                        cntNode14.setSelected(true); //Sets selected boolean to true to change colors
+                        cntNode34.setSelected(true);
+                        cntNode45.setSelected(true);
+                        cntNode14.postInvalidate(); //Invalidate to redraw as new color
+                        cntNode34.postInvalidate();
+                        cntNode45.postInvalidate();
+                    }
+                    if (node5.contains(touchX, touchY)) {
+                        resetLines(); //Resets lines back to black
+                        gameRules.setLastNode(node5);
+                        cntNode25.setSelected(true); //Sets selected boolean to true to change colors
+                        cntNode45.setSelected(true);
+                        cntNode56.setSelected(true);
+                        cntNode25.postInvalidate(); //Invalidate to redraw as new color
+                        cntNode45.postInvalidate();
+                        cntNode56.postInvalidate();
+                    }
+                    if (node6.contains(touchX, touchY)) {
+                        resetLines(); //Resets lines back to black
+=======
                 textView.setText("Touch Down"); //Touch debugging
                     if (!(movingPebbles)) {
                         if (node1.contains(touchX, touchY)) { //Refer to PebbleNode.contains()
@@ -223,27 +244,31 @@ public class FirstMap extends Activity {
                             resetLines(); //Resets lines back to black
                             gameRules.setLastNode(node6);
                         }
+>>>>>>> origin/master
                     }
                 break;
             //Action_Move happens when your finger moves on the screen while pressed down
             case MotionEvent.ACTION_MOVE:
-                textView.setText("Touch Move"); //Touch debugging
                 //When swiping across the screen this checks if there was a last node selected
-                if(gameRules.getLastNode() != null) {
+                if(gameRules.getLastNode() != null)
                     movingPebbles = true;
-                } else {
+                else
                     movingPebbles = false;
-                }
                 break;
             //Action_Up happens when your finger leaves the screen
             case MotionEvent.ACTION_UP:
-                textView.setText("Touch Up"); //Touch debugging
-                // The following activates when another node was selected before the node that was just touched, signifying a move.
+                //The following activates when another node was selected before the node that was just touched, signifying a move.
                 //Checks if the nodes are connected via connected nodes in game rules
+                PebbleNode lastNode = gameRules.getLastNode();
                 if(movingPebbles){
                     if (node1.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node1) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node1))) { //Refer to PebbleNode.contains() and GameRules.checkPebbleMove()
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node1) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node1))) { //Refer to PebbleNode.contains() and GameRules.checkPebbleMove()
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node1);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node1);
@@ -253,8 +278,13 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                     if (node2.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node2) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node2))) {
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node2) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node2))) {
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node2);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node2);
@@ -264,8 +294,13 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                     if (node3.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node3) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node3))) {
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node3) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node3))) {
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node3);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node3);
@@ -275,8 +310,13 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                     if (node4.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node4) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node4))) {
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node4) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node4))) {
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node4);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node4);
@@ -286,8 +326,13 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                     if (node5.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node5) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node5))) {
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node5) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node5))) {
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node5);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node5);
@@ -297,8 +342,13 @@ public class FirstMap extends Activity {
                         movingPebbles = false;
                     }
                     if (node6.contains(touchX, touchY) &&
+<<<<<<< HEAD
+                            gameRules.checkPebbleMove(lastNode, node6) &&
+                            !(gameRules.checkIllegalDefenderMove(lastNode, node6))) {
+=======
                             gameRules.checkPebbleMove(gameRules.getLastNode(), node6) &&
                             !(gameRules.checkIllegalDefenderMove(gameRules.getLastNode(), node6))) {
+>>>>>>> origin/master
                         gameRules.getLastNode().movePebbles(node6);
                         gameRules.setLastMoveFrom(gameRules.getLastNode());
                         gameRules.setLastMoveTo(node6);

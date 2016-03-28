@@ -12,14 +12,4 @@
     android:id="@+id/firstMapGameView"
     tools:context=".Maps.FirstMap">
 
-    <!-- Textview to show what touch is happening on the bottom of the screen -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/touchEvent"
-        android:text="Touch"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"/>
-
-
 </RelativeLayout>
