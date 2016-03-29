@@ -10,7 +10,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.browse.MediaBrowser;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -30,23 +29,16 @@ public class GameRules extends View{
     PebbleNode lastNodeSelected = null, lastNodeMovedFrom, lastNodeMovedTo, goalNode;
     ArrayList<ConnectNodes> listOfConnectedNodes;
     ArrayList<PebbleNode> listOfPebbleNodes;
-<<<<<<< HEAD
-    boolean attackersTurn;
-=======
     boolean attackersTurn = true;
->>>>>>> origin/master
     int screenX, screenY;
     Paint paint;
-    Context context;
 
     //Default initialization
     public GameRules(Context context) {
         super(context);
-        this.context = context;
         listOfConnectedNodes = new ArrayList<>();
         listOfPebbleNodes = new ArrayList<>();
         paint = new Paint();
-        attackersTurn = true;
     }
 
     //This method gets executed after it's called to draw the item to your 'canvas' or layout
@@ -61,7 +53,7 @@ public class GameRules extends View{
             turnText = "";
         else
             turnText = attackersTurn ? "Attacker's Turn" : "Defender's Turn";
-        canvas.drawText(turnText, (screenX * 3/8),(screenY * 7/8), paint);
+        canvas.drawText(turnText, (screenX * 3 / 8), (screenY * 7 /8), paint);
 
         //Checks if the goal node has a pebble on it
         if (goalNode.getPebbles() > 0){
@@ -82,13 +74,21 @@ public class GameRules extends View{
         invalidate(); //Keeps drawing on the screen so if the values above change it will redraw instantly
     }
 
+    //Adder method
+    public void addConnectedNodes(ConnectNodes connectedNodes) {
+        listOfConnectedNodes.add(connectedNodes);
+    }
+
+    //Adder method
+    public void addPebbleNodes(PebbleNode pebbleNode) {
+        listOfPebbleNodes.add(pebbleNode);
+    }
+
     //Checks if the pebbles are allowed to move via list of connected nodes
     //If node1 from connected nodes is either the start or destination and node 2 from
     //connected nodes is either the start or destination then the move is valid so return true
     //otherwise return false
     public boolean checkPebbleMove(PebbleNode start, PebbleNode destination) {
-        if (start.getPebbles() < 1)
-            return false;
         for (ConnectNodes cntNode: listOfConnectedNodes)
             if ( (cntNode.node1 == start || cntNode.node1 == destination) &&
                     (cntNode.node2 == start || cntNode.node2 == destination))
@@ -100,20 +100,12 @@ public class GameRules extends View{
     //defender's move is the destination the the attacker's last move, and the destination is the
     //start of the attacker's last move, this is illegal. Returns true if the move is illegal.
     public boolean checkIllegalDefenderMove(PebbleNode start, PebbleNode destination) {
-<<<<<<< HEAD
         if (start == lastNodeMovedTo && destination == lastNodeMovedFrom && !(attackersTurn)) {
-            Toast.makeText(context, "Defender Can't Move Pebbles Back", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Attackers Move Can't be Undone", Toast.LENGTH_SHORT).show();
             return true;
         }
-        else {
-            swapTurns();
-            return false;
-        }
-=======
-        if (start == lastNodeMovedTo && destination == lastNodeMovedFrom && !(attackersTurn))
-            return true;
+        attackersTurn = !attackersTurn;
         return false;
->>>>>>> origin/master
     }
 
     //For each PebbleNode in the list of nodes check if any of them have 2 or more pebbles return false (attacker hasn't lost)
@@ -137,20 +129,20 @@ public class GameRules extends View{
         return super.onTouchEvent(event);
     }
 
-    //Adder method
-    public void addConnectedNodes(ConnectNodes connectedNodes) {
-        listOfConnectedNodes.add(connectedNodes);
-    }
-
-    //Adder method
-    public void addPebbleNodes(PebbleNode pebbleNode) {
-        listOfPebbleNodes.add(pebbleNode);
-    }
-
     //Setter method
     public void setScreenSize(int x, int y) {
         screenX = x;
         screenY = y;
+    }
+
+    //Getter method
+    public ArrayList<ConnectNodes> getListOfConnectedNodes() {
+        return listOfConnectedNodes;
+    }
+
+    //Getter method
+    public ArrayList<PebbleNode> getListOfPebbleNodes() {
+        return listOfPebbleNodes;
     }
 
     //Setter method
@@ -168,33 +160,7 @@ public class GameRules extends View{
         lastNodeSelected = nodeSelected;
     }
 
-<<<<<<< HEAD
-    //Getter method
-    public ArrayList<ConnectNodes> getListOfConnectedNodes() {
-        return listOfConnectedNodes;
-    }
-
-    //Getter method
-    public ArrayList<PebbleNode> getListOfPebbleNodes(){
-        return  listOfPebbleNodes;
-    }
-
-    //Setter method
-    public void setLastMoveFrom(PebbleNode node) { lastNodeMovedFrom = node; }
-
-    //Setter method
-    public void setLastMoveTo(PebbleNode node) { lastNodeMovedTo = node; }
-
-    //Swaps whose move it is
-    public void swapTurns() {
-        attackersTurn = !(attackersTurn);
-    }
-=======
     public void setLastMoveFrom(PebbleNode node) { lastNodeMovedFrom = node; }
 
     public void setLastMoveTo(PebbleNode node) { lastNodeMovedTo = node; }
-
-    //Swaps whose move it is
-    public void swapTurns() { attackersTurn = !(attackersTurn); }
->>>>>>> origin/master
 }
