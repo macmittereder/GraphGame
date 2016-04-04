@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import svc.com.graphgame.Maps.FirstMap;
 import svc.com.graphgame.Maps.SecondMap;
+import svc.com.graphgame.Maps.ThirdMap;
 
 /*
 * Created 3/10/2016 by Mac Mittereder
@@ -73,8 +74,6 @@ public class MapList extends AppCompatActivity implements AdapterView.OnItemClic
         */
         switch (position) {
             case 0:
-                Toast.makeText(this, "First Clicked", Toast.LENGTH_SHORT).show(); //This gives a small notification on your screen for a short peroid of time
-
                 /*
                 * Switching views using startActivity with a new Intent
                 * Must pass the context of this view using this and activity you're going to using .class
@@ -82,12 +81,16 @@ public class MapList extends AppCompatActivity implements AdapterView.OnItemClic
                 startActivity(new Intent(this, FirstMap.class));
                 break;
             case 1:
-                Toast.makeText(this, "Second Clicked", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, SecondMap.class));
                 break;
             case 2:
-                Toast.makeText(this, "Third Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, ThirdMap.class));
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, StartScreen.class));
     }
 }

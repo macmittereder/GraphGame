@@ -1,18 +1,18 @@
 package svc.com.graphgame.Maps;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import svc.com.graphgame.GameFiles.ConnectNodes;
 import svc.com.graphgame.GameFiles.GameRules;
 import svc.com.graphgame.GameFiles.PebbleNode;
+import svc.com.graphgame.MapList;
 import svc.com.graphgame.R;
 
 /*
@@ -44,11 +44,11 @@ public class FirstMap extends Activity {
         super.onCreate(savedInstanceState);
         //Don't change the following lines
         requestWindowFeature(Window.FEATURE_NO_TITLE); //Removes window title bar
-        setContentView(R.layout.first_map_layout); //Set layout to the first map layout
-        gameRules = new GameRules(this); //Initialize game rules
+        setContentView(R.layout.game_map); //Set layout to the first map layout
+        gameRules = new GameRules(this, 1); //Initialize game rules
 
 		//Initialize layout
-        relativeLayout = (RelativeLayout) findViewById(R.id.firstMapGameView);
+        relativeLayout = (RelativeLayout) findViewById(R.id.mapGameView);
 
 		//Retrieving dimensions of the screen 
         Display display = getWindowManager().getDefaultDisplay();
@@ -268,5 +268,10 @@ public class FirstMap extends Activity {
                 break;
         }
         return super.onTouchEvent(event); //Don't touch this
+    }
+
+    @Override
+    public void onBackPressed(){
+        startActivity(new Intent(this, MapList.class));
     }
 }

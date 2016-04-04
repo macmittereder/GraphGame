@@ -26,7 +26,8 @@
         <activity
             android:name=".AboutScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".Maps.SecondMap"></activity>
+        <activity android:name=".Maps.SecondMap" />
+        <activity android:name=".Maps.ThirdMap"></activity>
     </application>
 
 </manifest>

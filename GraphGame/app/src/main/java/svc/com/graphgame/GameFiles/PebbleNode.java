@@ -13,7 +13,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-import svc.com.graphgame.R;
 
 /*
 * Created 3/15/2016 by Mac Mittereder

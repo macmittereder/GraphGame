@@ -6,15 +6,21 @@ package svc.com.graphgame.GameFiles;
 */
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.browse.MediaBrowser;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import svc.com.graphgame.MapList;
+import svc.com.graphgame.Maps.FirstMap;
+import svc.com.graphgame.Maps.SecondMap;
+import svc.com.graphgame.Maps.ThirdMap;
 
 public class GameRules extends View{
 
@@ -30,12 +36,14 @@ public class GameRules extends View{
     ArrayList<ConnectNodes> listOfConnectedNodes;
     ArrayList<PebbleNode> listOfPebbleNodes;
     boolean attackersTurn = true;
-    int screenX, screenY;
+    int screenX, screenY, mapNum;
     Paint paint;
+    Rect resetRect, resetMapRect;
 
     //Default initialization
-    public GameRules(Context context) {
+    public GameRules(Context context, int mapNum) {
         super(context);
+        this.mapNum = mapNum;
         listOfConnectedNodes = new ArrayList<>();
         listOfPebbleNodes = new ArrayList<>();
         paint = new Paint();
@@ -45,9 +53,9 @@ public class GameRules extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //displays to the screen either attacker or defender's turn
+        //Displays to the screen either attacker or defender's turn
         paint.setTextSize(75f);
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.rgb(171, 32, 159));
         String turnText;
         if (checkLose())
             turnText = "";
@@ -57,19 +65,39 @@ public class GameRules extends View{
 
         //Checks if the goal node has a pebble on it
         if (goalNode.getPebbles() > 0){
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.rgb(227, 227, 227));
             canvas.drawRect(0, 0, screenX, screenY, paint);
             paint.setColor(Color.BLACK);
             paint.setTextSize(120f);
             canvas.drawText("Attacker Wins!", (screenX / 4) , (screenY / 2), paint);
+
+            paint.setColor(Color.rgb(171, 32, 159));
+            paint.setTextSize(60f);
+            resetRect = new Rect(screenX / 4, (screenY/2)+200, screenX-360 , (screenY/2)+400);
+            canvas.drawRect(resetRect, paint);
+            resetMapRect = new Rect(screenX/4, (screenY/2) + 500, screenX-360, (screenY/2)+700);
+            canvas.drawRect(resetMapRect, paint);
+            paint.setColor(Color.BLACK);
+            canvas.drawText("Replay", resetRect.centerX(), resetRect.centerY(), paint);
+            canvas.drawText("Choose Map", resetMapRect.centerX(), resetMapRect.centerY(), paint);
         }
         //Checks if there are more than 1 pebble on a node at any time
         if(checkLose()) {
-            paint.setColor(Color.WHITE);
+            paint.setColor(Color.rgb(227, 227, 227));
             canvas.drawRect(0, 0, screenX, screenY, paint);
             paint.setColor(Color.BLACK);
             paint.setTextSize(120f);
-            canvas.drawText("Defender Wins!", (screenX / 4) , (screenY / 2), paint);
+            canvas.drawText("Defender Wins!", (screenX / 4), (screenY / 2), paint);
+
+            paint.setColor(Color.rgb(171, 32, 159));
+            paint.setTextSize(60f);
+            resetRect = new Rect(screenX / 4, (screenY/2)+200, screenX-360 , (screenY/2)+400);
+            canvas.drawRect(resetRect, paint);
+            resetMapRect = new Rect(screenX/4, (screenY/2) + 500, screenX-360, (screenY/2)+700);
+            canvas.drawRect(resetMapRect, paint);
+            paint.setColor(Color.BLACK);
+            canvas.drawText("Replay", resetRect.centerX(), resetRect.centerY(), paint);
+            canvas.drawText("Choose Map", resetMapRect.centerX(), resetMapRect.centerY(), paint);
         }
         invalidate(); //Keeps drawing on the screen so if the values above change it will redraw instantly
     }
@@ -124,6 +152,23 @@ public class GameRules extends View{
         int touchY = (int) event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (checkLose() || goalNode.getPebbles() > 0) {
+                    if (resetRect.contains(touchX, touchY)) {
+                        switch (mapNum) {
+                            case 1:
+                                getContext().startActivity(new Intent(getContext(), FirstMap.class));
+                                break;
+                            case 2:
+                                getContext().startActivity(new Intent(getContext(), SecondMap.class));
+                                break;
+                            case 3:
+                                getContext().startActivity(new Intent(getContext(), ThirdMap.class));
+                                break;
+                        }
+                    }
+                    if (resetMapRect.contains(touchX, touchY))
+                        getContext().startActivity(new Intent(getContext(), MapList.class));
+                }
                 break;
         }
         return super.onTouchEvent(event);
