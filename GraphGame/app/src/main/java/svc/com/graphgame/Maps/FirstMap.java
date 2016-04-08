@@ -59,12 +59,12 @@ public class FirstMap extends Activity {
 
         //Creating pebble nodes with (Context(Just put 'this'), TopX, TopY, BottomX, BottomY, number of pebbles to start with, boolean if this is the goal node
         //Refer to the PebbleNode class
-        node1 = new PebbleNode(this, 45, 45, 400, 400, 0, false);
-        node2 = new PebbleNode(this, (width - (int) node1.width()) - 45, 45, width - 45, 400, 7, false);
-        node3 = new PebbleNode(this, 45, 510, 400, 865, 0, false);
-        node4 = new PebbleNode(this, (width - (int) node3.width()) - 45, 510, width - 45, 865, 5, false);
-        node5 = new PebbleNode(this, 45, 975, 400, 1330, 0, false);
-        node6 = new PebbleNode(this, (width - (int) node5.width()) - 45, 975, width - 45, 1330, 0, true); //This is goal node so set to true
+        node1 = new PebbleNode(this, 75, 50, 375, 350, 0, false);
+        node2 = new PebbleNode(this, width - 375, 50, width - 75, 350, 7, false);
+        node3 = new PebbleNode(this, 75, 550, 375, 850, 0, false);
+        node4 = new PebbleNode(this, width - 375, 550, width - 75, 850, 5, false);
+        node5 = new PebbleNode(this, 75, 1050, 400, 1350, 0, false);
+        node6 = new PebbleNode(this, width - 375, 1050, width - 75, 1350, 0, true); //This is goal node so set to true
 
         //Creating lines to connect the nodes with (Context(Just put 'this'), first node, second node
         //Refer to the ConnectNodes class
@@ -147,16 +147,20 @@ public class FirstMap extends Activity {
                             resetLines(); //Resets lines back to black
                             gameRules.setLastNode(node2);
                             cntNode12.setSelected(true); //Sets selected boolean to true to change colors
+                            cntNode23.setSelected(true);
                             cntNode25.setSelected(true);
                             cntNode12.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode23.postInvalidate();
                             cntNode25.postInvalidate();
                         }
                         if (node3.contains(touchX, touchY)) {
                             resetLines(); //Resets lines back to black
                             gameRules.setLastNode(node3);
+                            cntNode23.setSelected(true);
                             cntNode34.setSelected(true); //Sets selected boolean to true to change colors
                             cntNode36.setSelected(true);
-                            cntNode34.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode23.postInvalidate(); //Invalidate to redraw as new color
+                            cntNode34.postInvalidate();
                             cntNode36.postInvalidate();
                         }
                         if (node4.contains(touchX, touchY)) {

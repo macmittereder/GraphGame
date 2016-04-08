@@ -61,7 +61,7 @@ public class GameRules extends View{
             turnText = "";
         else
             turnText = attackersTurn ? "Attacker's Turn" : "Defender's Turn";
-        canvas.drawText(turnText, (screenX * 3 / 8), (screenY * 7 /8), paint);
+        canvas.drawText(turnText, (screenX / 2) - 250, (screenY * 7 /8), paint);
 
         //Checks if the goal node has a pebble on it
         if (goalNode.getPebbles() > 0){
@@ -78,8 +78,8 @@ public class GameRules extends View{
             resetMapRect = new Rect(screenX/4, (screenY/2) + 500, screenX-360, (screenY/2)+700);
             canvas.drawRect(resetMapRect, paint);
             paint.setColor(Color.BLACK);
-            canvas.drawText("Replay", resetRect.centerX(), resetRect.centerY(), paint);
-            canvas.drawText("Choose Map", resetMapRect.centerX(), resetMapRect.centerY(), paint);
+            canvas.drawText("Replay", resetRect.centerX() - 100, resetRect.centerY(), paint);
+            canvas.drawText("Choose Map", resetMapRect.centerX() - 175, resetMapRect.centerY(), paint);
         }
         //Checks if there are more than 1 pebble on a node at any time
         if(checkLose()) {
@@ -96,10 +96,9 @@ public class GameRules extends View{
             resetMapRect = new Rect(screenX/4, (screenY/2) + 500, screenX-360, (screenY/2)+700);
             canvas.drawRect(resetMapRect, paint);
             paint.setColor(Color.BLACK);
-            canvas.drawText("Replay", resetRect.centerX(), resetRect.centerY(), paint);
-            canvas.drawText("Choose Map", resetMapRect.centerX(), resetMapRect.centerY(), paint);
+            canvas.drawText("Replay", resetRect.centerX() - 100, resetRect.centerY(), paint);
+            canvas.drawText("Choose Map", resetMapRect.centerX() - 175, resetMapRect.centerY(), paint);
         }
-        invalidate(); //Keeps drawing on the screen so if the values above change it will redraw instantly
     }
 
     //Adder method
@@ -117,6 +116,8 @@ public class GameRules extends View{
     //connected nodes is either the start or destination then the move is valid so return true
     //otherwise return false
     public boolean checkPebbleMove(PebbleNode start, PebbleNode destination) {
+        if (start.getPebbles() < 2 || start == goalNode)
+            return false;
         for (ConnectNodes cntNode: listOfConnectedNodes)
             if ( (cntNode.node1 == start || cntNode.node1 == destination) &&
                     (cntNode.node2 == start || cntNode.node2 == destination))
@@ -132,6 +133,7 @@ public class GameRules extends View{
             Toast.makeText(getContext(), "Attackers Move Can't be Undone", Toast.LENGTH_SHORT).show();
             return true;
         }
+        invalidate();
         attackersTurn = !attackersTurn;
         return false;
     }

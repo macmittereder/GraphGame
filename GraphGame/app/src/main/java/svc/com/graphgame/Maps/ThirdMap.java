@@ -61,13 +61,13 @@ public class ThirdMap extends Activity {
         //Refer to the PebbleNode class
         //All measurements here are expressed in terms of width and height to account for varying screen sizes. The screen is divided into 7 imaginary segments
         //with each node taking up 1/7th of the width and height of the screen, with a 1/7th wide gap between each node.
-        node1 = new PebbleNode(this, width/7, height/7, (width/7) * 2, (height/7) * 2, 15, false);
-        node2 = new PebbleNode(this, (width/7) * 3, height/7, (width/7) * 4, (height/7) * 2, 12, false);
-        node3 = new PebbleNode(this, (width/7) * 5, height/7, width - width/7, (height/7) * 2, 13, false);
-        node4 = new PebbleNode(this, width/7, (height/7) * 3, (width/7) * 2, (height/7) * 4, 0, false);
-        node5 = new PebbleNode(this, (width/7) * 3, (height/7) * 3, (width/7) * 4, (height/7) * 4, 0, false);
-        node6 = new PebbleNode(this, (width/7) * 5, (height/7) * 3, width - width/7, (height/7) * 4, 0, false);
-        node7 = new PebbleNode(this, (width/7) * 3, (height/7) * 5, (width/7) * 4, height - height/7, 0, true);//This is goal node so set to true
+        node1 = new PebbleNode(this, 100, 100, 400, 400, 15, false);
+        node2 = new PebbleNode(this, (width / 2) - 150, 100, (width / 2) + 150, 400, 12, false);
+        node3 = new PebbleNode(this, width - 400, 100, width - 100, 400, 13, false);
+        node4 = new PebbleNode(this, 100, 650, 400, 950, 0, false);
+        node5 = new PebbleNode(this, (width / 2) - 150, 650, (width / 2) + 150, 950, 0, false);
+        node6 = new PebbleNode(this, width - 400, 650, width - 100, 950, 0, false);
+        node7 = new PebbleNode(this, (width / 2) - 150, 1200, (width / 2) + 150, 1500, 0, true);//This is goal node so set to true
 
         //Creating lines to connect the nodes with (Context(Just put 'this'), first node, second node
         //Refer to the ConnectNodes class
@@ -229,7 +229,7 @@ public class ThirdMap extends Activity {
                     }
                     if (node6.contains(touchX, touchY)) {
                         resetLines(); //Resets lines back to black
-                        gameRules.setLastNode(node5);
+                        gameRules.setLastNode(node6);
                         cntNode36.setSelected(true); //Sets selected boolean to true to change colors
                         cntNode56.setSelected(true);
                         cntNode67.setSelected(true);

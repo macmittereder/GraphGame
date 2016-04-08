@@ -39,6 +39,7 @@ public class StartScreen extends AppCompatActivity implements View.OnClickListen
         * Also must implement OnClickListener and methods
         */
         start.setOnClickListener(this);
+        about.setOnClickListener(this);
     }
 
     //Class that assigns functions to buttons
