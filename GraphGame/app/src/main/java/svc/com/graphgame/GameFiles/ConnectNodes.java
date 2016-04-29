@@ -55,4 +55,9 @@ public class ConnectNodes extends View{
     public void setSelected(boolean selected){
         this.selected = selected;
     }
+
+    @Override
+    public String toString() {
+        return node1.toString() + " connects with " + node2.toString();
+    }
 }

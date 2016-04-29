@@ -12,6 +12,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
+import android.view.animation.ScaleAnimation;
 
 
 /*
@@ -30,7 +31,7 @@ public class PebbleNode extends View {
     //Create global variables for objects on screen and import classes
     Paint paint = new Paint();
     float left, top, right, bottom, sideLength = 500;
-    int numPebbles;
+    int numPebbles, numNode;
     boolean goalNode;
 
     //Default initialization
@@ -41,7 +42,7 @@ public class PebbleNode extends View {
     //This is the method to create nodes, this takes (Context(Just leave as is), TopLeftX, TopLeftY, BottomRightX, BottomRightY,
     //number of pebbles the node starts with, boolean to tell which is the goal node
     public PebbleNode(Context context, float left, float top, float right,
-            float bottom, int numPebbles, Boolean goalNode){
+            float bottom, int numPebbles, Boolean goalNode, int numNode){
         super(context);
         this.left = left;
         this.top = top;
@@ -49,6 +50,7 @@ public class PebbleNode extends View {
         this.bottom = bottom;
         this.numPebbles = numPebbles;
         this.goalNode = goalNode;
+        this.numNode = numNode;
     }
 
     //This method gets executed after it's called to draw the item to your 'canvas' or layout
@@ -125,5 +127,10 @@ public class PebbleNode extends View {
             this.postInvalidate(); // Update the game display once the move occurs
             destination.postInvalidate();
         }
+    }
+
+    @Override
+    public String toString(){
+        return "Node: " + numNode;
     }
 }

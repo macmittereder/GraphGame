@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -116,12 +117,17 @@ public class GameRules extends View{
     //connected nodes is either the start or destination then the move is valid so return true
     //otherwise return false
     public boolean checkPebbleMove(PebbleNode start, PebbleNode destination) {
-        if (start.getPebbles() < 2 || start == goalNode)
-            return false;
-        for (ConnectNodes cntNode: listOfConnectedNodes)
-            if ( (cntNode.node1 == start || cntNode.node1 == destination) &&
-                    (cntNode.node2 == start || cntNode.node2 == destination))
-                return true;
+        try {
+            Log.d("Node causing error: ", " " + start.toString());
+            if (start.getPebbles() < 2 || start == goalNode)
+                return false;
+            for (ConnectNodes cntNode : listOfConnectedNodes)
+                if ((cntNode.node1 == start || cntNode.node1 == destination) &&
+                        (cntNode.node2 == start || cntNode.node2 == destination))
+                    return true;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -210,4 +216,13 @@ public class GameRules extends View{
     public void setLastMoveFrom(PebbleNode node) { lastNodeMovedFrom = node; }
 
     public void setLastMoveTo(PebbleNode node) { lastNodeMovedTo = node; }
+
+    public void swapTurn() {
+        invalidate();
+        attackersTurn = !attackersTurn;
+    }
+
+    public boolean getTurn() {
+        return attackersTurn;
+    }
 }

@@ -5,12 +5,15 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import svc.com.graphgame.GameFiles.ConnectNodes;
+import svc.com.graphgame.GameFiles.DefendAI;
 import svc.com.graphgame.GameFiles.GameRules;
 import svc.com.graphgame.GameFiles.PebbleNode;
 import svc.com.graphgame.R;
@@ -37,6 +40,8 @@ public class ThirdMap extends Activity {
     ConnectNodes cntNode12, cntNode14, cntNode23, cntNode24, cntNode25,
             cntNode34, cntNode35, cntNode36, cntNode45, cntNode47, cntNode56, cntNode57, cntNode67;
     GameRules gameRules;
+    DefendAI defend;
+    Button buttonAI;
     boolean movingPebbles = false;
 
     @Override
@@ -49,6 +54,7 @@ public class ThirdMap extends Activity {
 
         //Initialize layout
         relativeLayout = (RelativeLayout) findViewById(R.id.mapGameView);
+        buttonAI = (Button) findViewById(R.id.btnAI);
 
         //Retrieving dimensions of the screen
         Display display = getWindowManager().getDefaultDisplay();
@@ -61,13 +67,13 @@ public class ThirdMap extends Activity {
         //Refer to the PebbleNode class
         //All measurements here are expressed in terms of width and height to account for varying screen sizes. The screen is divided into 7 imaginary segments
         //with each node taking up 1/7th of the width and height of the screen, with a 1/7th wide gap between each node.
-        node1 = new PebbleNode(this, 100, 100, 400, 400, 15, false);
-        node2 = new PebbleNode(this, (width / 2) - 150, 100, (width / 2) + 150, 400, 12, false);
-        node3 = new PebbleNode(this, width - 400, 100, width - 100, 400, 13, false);
-        node4 = new PebbleNode(this, 100, 650, 400, 950, 0, false);
-        node5 = new PebbleNode(this, (width / 2) - 150, 650, (width / 2) + 150, 950, 0, false);
-        node6 = new PebbleNode(this, width - 400, 650, width - 100, 950, 0, false);
-        node7 = new PebbleNode(this, (width / 2) - 150, 1200, (width / 2) + 150, 1500, 0, true);//This is goal node so set to true
+        node1 = new PebbleNode(this, 100, 100, 400, 400, 15, false, 1);
+        node2 = new PebbleNode(this, (width / 2) - 150, 100, (width / 2) + 150, 400, 12, false, 2);
+        node3 = new PebbleNode(this, width - 400, 100, width - 100, 400, 13, false, 3);
+        node4 = new PebbleNode(this, 100, 650, 400, 950, 0, false, 4);
+        node5 = new PebbleNode(this, (width / 2) - 150, 650, (width / 2) + 150, 950, 0, false, 5);
+        node6 = new PebbleNode(this, width - 400, 650, width - 100, 950, 0, false, 6);
+        node7 = new PebbleNode(this, (width / 2) - 150, 1200, (width / 2) + 150, 1500, 0, true, 7);//This is goal node so set to true
 
         //Creating lines to connect the nodes with (Context(Just put 'this'), first node, second node
         //Refer to the ConnectNodes class
@@ -124,6 +130,15 @@ public class ThirdMap extends Activity {
         //Set game rules to front to display win
         relativeLayout.addView(gameRules);
         gameRules.bringToFront();
+
+        defend = new DefendAI(gameRules);
+
+        buttonAI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defend.takeTurn();
+            }
+        });
     }
 
     //This is a class to reset the lines back to black

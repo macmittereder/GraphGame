@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import svc.com.graphgame.GameFiles.ConnectNodes;
+import svc.com.graphgame.GameFiles.DefendAI;
 import svc.com.graphgame.GameFiles.GameRules;
 import svc.com.graphgame.GameFiles.PebbleNode;
 import svc.com.graphgame.MapList;
@@ -20,7 +24,7 @@ import svc.com.graphgame.R;
 * This is the first map class
 */
 
-public class FirstMap extends Activity {
+public class FirstMap extends Activity{
 
     /*
     * TODO: Bring lines from selected node to front
@@ -37,6 +41,8 @@ public class FirstMap extends Activity {
     ConnectNodes cntNode12, cntNode14, cntNode16, cntNode23, cntNode25,
             cntNode34, cntNode36, cntNode45, cntNode56;
     GameRules gameRules;
+    Button buttonAI;
+    DefendAI defend;
     boolean movingPebbles = false;
 
     @Override
@@ -49,6 +55,7 @@ public class FirstMap extends Activity {
 
 		//Initialize layout
         relativeLayout = (RelativeLayout) findViewById(R.id.mapGameView);
+        buttonAI = (Button) findViewById(R.id.btnAI);
 
 		//Retrieving dimensions of the screen 
         Display display = getWindowManager().getDefaultDisplay();
@@ -59,12 +66,12 @@ public class FirstMap extends Activity {
 
         //Creating pebble nodes with (Context(Just put 'this'), TopX, TopY, BottomX, BottomY, number of pebbles to start with, boolean if this is the goal node
         //Refer to the PebbleNode class
-        node1 = new PebbleNode(this, 75, 50, 375, 350, 0, false);
-        node2 = new PebbleNode(this, width - 375, 50, width - 75, 350, 7, false);
-        node3 = new PebbleNode(this, 75, 550, 375, 850, 0, false);
-        node4 = new PebbleNode(this, width - 375, 550, width - 75, 850, 5, false);
-        node5 = new PebbleNode(this, 75, 1050, 400, 1350, 0, false);
-        node6 = new PebbleNode(this, width - 375, 1050, width - 75, 1350, 0, true); //This is goal node so set to true
+        node1 = new PebbleNode(this, 75, 50, 375, 350, 0, false, 1);
+        node2 = new PebbleNode(this, width - 375, 50, width - 75, 350, 7, false, 2);
+        node3 = new PebbleNode(this, 75, 550, 375, 850, 0, false, 3);
+        node4 = new PebbleNode(this, width - 375, 550, width - 75, 850, 5, false, 4);
+        node5 = new PebbleNode(this, 75, 1050, 400, 1350, 0, false, 5);
+        node6 = new PebbleNode(this, width - 375, 1050, width - 75, 1350, 0, true, 6); //This is goal node so set to true
 
         //Creating lines to connect the nodes with (Context(Just put 'this'), first node, second node
         //Refer to the ConnectNodes class
@@ -112,6 +119,15 @@ public class FirstMap extends Activity {
         //Set game rules to front to display win
         relativeLayout.addView(gameRules);
         gameRules.bringToFront();
+
+        defend = new DefendAI(gameRules);
+
+        buttonAI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                defend.takeTurn();
+            }
+        });
     }
 
     //This is a class to reset the lines back to black
@@ -278,4 +294,5 @@ public class FirstMap extends Activity {
     public void onBackPressed(){
         startActivity(new Intent(this, MapList.class));
     }
+
 }

@@ -3,7 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="svc.com.graphgame.AboutScreen">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginTop="5dp"
+        android:text="How to play"
+        android:textSize="40dp"
+        android:id="@+id/tvTitle" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="The game played over a fixed graph.
+        There are two players in this game, an Attacker and a defender.
+        During each of their moves, the player must remove two of thier pebbles from one node and
+        places a single pebble on the adjacent one. If a player cannot move a pebble on their turn, they
+        lose automatically.. For the Attacker to win the game, he or she must move one of their pebbles into the respected goal nodes,
+        and it is the Defender's job to prevent that from happining by placing their pebbles in nodes so that the other's pebbles cannot move in their place."
+        android:textSize="15dp"
+        android:id="@+id/rules"
+        android:layout_below="@+id/tvTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Credits"
+        android:textSize="40dp"
+        android:id="@+id/creditstitle"
+        android:layout_below="@+id/rules"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="Mac Mitterender
+         Adam DeMarchi
+         Jeremy Kurcina
+         Jordan Page
+         Ryan Taylor
+         Jordan Reyna
+         Nick Cimino"
+        android:textSize="15dp"
+        android:id="@+id/credits"
+        android:layout_below="@+id/creditstitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

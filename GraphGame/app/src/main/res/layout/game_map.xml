@@ -13,4 +13,12 @@
     android:background="@color/background"
     tools:context=".Maps.FirstMap">
 
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAI"
+        android:layout_alignParentLeft="true"
+        android:text="Defender AI"
+        android:layout_alignParentBottom="true"/>
+
 </RelativeLayout>
