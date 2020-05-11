@@ -1,7 +1,6 @@
-# GraphGame (Changed to Android)
-Changed Project to Android
+# Graph Game
+Software Engineering Class Project
 
-##Replace iOS project with Android
 Start of the Android project
 - Created StartScreen class and layout
   * Added text view for the title
